@@ -3,9 +3,14 @@ var isLoading = false,
     allPostsLoaded = false;
 
 $( () => {
+    $('#page-loading').remove();
 
     $('#js-load-more').bind('click', loadMorePosts);
     $(window).scroll(checkPageBottom);
+});
+
+$(window).load( () => {
+    $('#page-loading').remove();
 });
 
 async function sleep(ms) {
@@ -23,7 +28,6 @@ function loading(container) {
 function loadMorePosts() {
 
     if (isLoading || allPostsLoaded) {
-        loading();
         return;
     }
 
@@ -35,15 +39,16 @@ function loadMorePosts() {
     $.ajax({
         url: url,
         success: function(data){
-            loading();
-            $('.c-container-posts').append(data);
-            $('#js-load-more').attr('data-curr-page', (currPage + 1).toString());
 
-            console.log(data);
+            loading();
 
             if (!data) {
                 allPostsLoaded = true;
+                return;
             }
+
+            $('#js-load-more').attr('data-curr-page', (currPage + 1).toString());
+            $('.c-container-posts').append(data);
         }
     });
 
