@@ -1,0 +1,22 @@
+{
+    "" :
+    {
+        "controller" : "Home",
+        "action"     : "index"
+    } ,
+    "posts" : 
+    {
+        "controller" : "Posts",
+        "action"     : "index"
+    },
+    "posts/:categoryName" : 
+    {
+        "controller" : "Posts",
+        "action"     : "displayCategoryAll"
+    },
+    "posts/:categoryName/:postSlug" : 
+    {
+        "controller" : "Posts",
+        "action"     : "displayPost"
+    }
+}

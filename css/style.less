@@ -1,0 +1,536 @@
+// Less imports
+@import 'flex';
+@import 'fonts';
+@import 'icons';
+@import 'colors';
+
+@line-height: 1.4em;
+@max-width: 1360px;
+
+// CSS Reset
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    background-color: @bg-clr;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.c-container {
+    .flex();
+    .flex_col();
+}
+
+.c-container-header {
+
+    width: 100%;
+    
+    .flex();
+    .flex_col();
+    .justify_between();
+    
+    background: @header-bg-clr;
+    color: #eee;
+}
+
+.l-logo{
+    width: 100%;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    font-size: 2em;
+
+    padding: 40px 0px;
+}
+
+.l-navbar {
+
+    width: 100%;
+
+    .flex();
+    .justify_center();
+
+    border: 1px solid #222;
+    border-left: 0;
+    border-right: 0;
+
+    * {
+        font-family: 'Roboto';
+    }
+
+    ul {
+        .flex();
+        .align_center();
+
+        text-align: center;
+    }
+
+    ul li {
+        position:relative;
+
+        padding: 0px 50px;
+
+        list-style: none;
+        line-height: 50px;
+
+        white-space: nowrap;
+    }
+    
+    .l-navbar_link {
+        font-size: 16px;
+        transition: .1s;
+    }
+
+    @media (max-width: 1080px) {
+        ul {
+            .flex_col();
+        }
+    }
+}
+
+.l-navbar-item:hover {
+    cursor: pointer;
+    color: @secondary-clr;
+    transition: .25s;
+}
+
+.l-navbar ul li:hover > .l-navbar_subcat {
+    .flex();
+}
+
+.l-navbar .l-navbar_subcat {
+
+    position: absolute;    
+    top: 50px;
+    left: 0;
+
+    display: none;
+    .flex_col();
+
+    background: @header-bg-clr;
+    border-bottom: 2px solid cornflowerblue;
+
+    z-index: 9999;
+
+    li {
+        height: 50px;
+    }
+
+}
+
+.l-navbar_categories {
+    position: relative;
+}
+
+.l-categories ul {
+
+    position: absolute;
+    top: 50px;
+
+    .flex_col();
+}
+
+.l-categories ul li {
+
+    padding: 25px 0px;
+}
+
+.l-navbar_categories:hover .l-categories{
+    .flex();
+}
+
+.l-categories{
+    display:none;
+}
+
+.l-new-posts {
+
+    width: 100%;
+    height: 500px;
+
+    .flex();
+    .align_center();
+    .justify_center();
+    
+    padding: 20px;
+
+    .l-top-post {
+
+        > div {
+            position: relative;
+
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+        }
+
+        .l-top-post_image {            
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .l-top-post_description {
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            .flex();
+            .flex_col();
+            .justify_between();
+
+            color: #EEE;
+            
+            -webkit-box-shadow: inset 0px 0px 300px -25px rgba(0,0,0,0.5);
+            -moz-box-shadow: inset 0px 0px 300px -25px rgba(0,0,0,0.5);
+            box-shadow: inset 0px 0px 300px -25px rgba(0,0,0,0.5);
+        }
+
+        .l-description_title {
+            color: inherit;
+        }
+    }
+
+    .c_top-post_small {
+        .flex();
+        .flex_col();
+        height: 100%;
+    }
+
+    .l-top-post__big {
+        width: 700px;
+        height: 100%;
+
+        .l-top-post_description {
+
+            width: 100%;
+
+            padding: 40px;
+        }
+
+        .l-description_title {
+            font-size: 2.75em;
+        }
+    }
+
+    .l-top-post__small {
+        
+        width: 350px;
+        height: 50%;
+
+        .l-top-post_description {
+            
+            width: 100%;
+            padding: 20px;
+        }
+
+        .l-description_title {
+            font-size: 1em;
+            margin: 0;
+            margin-bottom: 5px;
+        }
+    }
+
+    @media (max-width: 1080px) {
+        .flex_wrap();
+        height: 100%;
+
+        .c_top-post_small {
+            .flex_row();
+        }
+
+        .l-top-post__big .l-description_title {
+            font-size: 2.5em;
+        }
+        
+        .l-top-post__big .l-top-post_description,
+        .l-top-post__small .l-top-post_description {
+            position: relative;
+        }
+    }
+
+    @media (max-width: 720px) {
+
+        .c_top-post_small {
+            .flex_col();
+        }
+
+        .l-top-post__small {
+            width: 100%;
+        }
+    }
+}
+
+.c-container-content {
+    max-width: @max-width;
+    width: 100%;
+
+    margin: 0 auto;
+
+    padding: 125px 20px;
+}
+
+
+/* Posts - Category */
+
+.c-container-posts > div {
+    width: 25%;
+    padding: 20px;
+    // border-radius: 5px;
+
+    @media (max-width: 1080px) {
+        width: 33.3333%;
+    }
+
+    @media (max-width: 720px) {
+        width: 50%;
+    }
+
+    @media (max-width: 520px) {
+        width: 100%;
+    }
+}
+
+.c-container-post {
+    
+    min-height: 125px;
+    
+    .flex();
+    .flex_col();
+
+    padding-bottom: 50px;
+}
+
+.l-post_image{
+
+    .flex();
+
+    overflow: hidden;
+    transition: all .25s ease-in-out; 
+
+    > img {        
+        transition: all .25s ease-in-out; 
+    }
+}
+
+.c-container-post:hover > .l-post_image img, 
+.l-top-post:hover .l-post_image img{    
+    transform: scale(1.05);
+}
+
+.l-post_description {
+
+    .flex();
+    .flex_col();
+    .justify_between();
+
+    padding: 15px;
+
+    // border-radius: 0 0 5px 5px;
+
+    background: #fefefe;
+
+    -webkit-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.25);
+
+    >div {
+        .flex();
+        .flex_col();
+
+        color: #444;
+    }
+}
+
+.l-description_smallDesc {
+
+    position: relative;
+    height: @line-height * 8;
+
+    margin-bottom: 10px;
+    
+    overflow:hidden;
+}
+
+.l-description_smallDesc::after {
+    content: "";
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: @line-height;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+}
+
+.l-description_title {
+    
+    margin: 20px 0 30px 0;
+
+    color: #222;
+
+    font-size: 1.75em;
+    font-weight: bold;
+}
+
+/* Posts */
+
+.c-container-posts {
+    width: 100%;
+    
+    .flex();
+    .flex_wrap();
+}
+
+.l-post-title {
+    display: block;
+
+    font-family: 'Roboto';
+    font-size: 3.25em;
+
+    text-transform: uppercase;
+    text-align: center;
+    
+    margin: 50px 0;
+}
+
+.l-post-small_desc {
+    display: block;
+    color: #444;
+}
+
+.l-post-info {
+
+    width: 100%;
+
+    .flex();
+    .justify_between();
+    .align_center();
+
+    padding: 25px 0;
+
+    @media (max-width: 520px) {
+        .flex_col();
+
+        .l-post-publish_date {
+            margin-bottom: 25px;
+        }
+    }
+}
+
+.l-post-publish_date {
+    span {
+        color: #33c;
+        font-weight: bold;
+    }
+}
+
+.l-post-author {
+
+    .flex();
+    .align_center();
+}
+
+.l-author-image {
+    display: block;
+
+    width: 60px;
+    height: 60px;
+
+    margin-right: 25px;
+
+    border-radius: 50%;
+    
+    background-color: black;
+}
+
+.l-post-author > div {
+
+    .flex();
+    .flex_col();
+}
+
+.l-post-image{
+
+    .flex();
+    .justify_center();
+}
+
+.l-post-content {
+    padding-top: 50px;
+}
+
+.c-container-footer {
+    height: 250px;
+    background: #222;
+}
+
+#loading {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #fff;
+    
+    z-index: 9999;
+
+    .flex();
+    .justify_center();
+    .align_center();
+}
+
+/* JS Elements */
+
+#js-load-more {
+    visibility: hidden;
+}
+
+#js-loading {
+    width: 100%;
+
+    .flex();
+    .justify_center();
+    .align_center();
+}
+
+#js-loading::after {
+    content: "";
+
+    width: 50px;
+    height: 50px;
+
+    border-color: @secondary-clr @secondary-clr @secondary-clr black;
+    border-width: 5px;
+    border-style: solid;
+
+    border-radius: 50%;
+
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
