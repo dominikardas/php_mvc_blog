@@ -12,4 +12,18 @@
             $this->_view = new View();
         }
 
+        /**
+         * Load the model by name
+         * 
+         * @param string $m Model name
+         */
+        protected function _loadModel($m) {
+
+            $model = $m . 'Model';
+
+            if (class_exists($model)) {
+                $this->{$model} = new $model($m);
+            }
+        }
+
     }

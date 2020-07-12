@@ -1,4 +1,5 @@
 <?php $this->setTitle($this->data['title']); ?>
+
 <?php $this->start('head'); ?>
 <?php $this->end(); ?>
 

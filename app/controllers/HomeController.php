@@ -4,19 +4,16 @@
 
         public function __construct($controller, $action) {
 
-            // Call Controller constructor
             parent::__construct($controller, $action);
-            
-            // Set layout
-            // $this->view->setLayout('home/indexLayout');
         }
 
         /**
          * Render the homepage
          */
         public function indexAction() {
-            $m = new PostsModel('Posts');
-            $this->_view->data = $m->getAllPosts();
+            
+            $pm = new PostsModel();
+            $this->_view->data = $pm->getAllPosts();
             $this->_view->render('home/index');
         }
 

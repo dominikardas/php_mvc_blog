@@ -18,5 +18,75 @@
     {
         "controller" : "Posts",
         "action"     : "displayPost"
+    },
+    "posts/designer" :
+    {
+        "controller" : "Posts",
+        "action"     : "designer"
+    },
+    "posts/preview" :
+    {
+        "controller" : "Posts",
+        "action"     : "preview"
+    },
+    "posts/publish" :
+    {
+        "controller" : "Posts",
+        "action"     : "publish"
+    },
+    "login" :
+    {
+        "controller" : "Login",
+        "action"     : "index"
+    },
+    "login/index" :
+    {
+        "controller" : "Login",
+        "action"     : "index"
+    },
+    "login/check" :
+    {
+        "controller" : "Login",
+        "action"     : "check"
+    },
+    "register" :
+    {
+        "controller" : "Register",
+        "action"     : "index"
+    },
+    "register/index" :
+    {
+        "controller" : "Register",
+        "action"     : "index"
+    },
+    "register/check" :
+    {
+        "controller" : "Register",
+        "action"     : "check"
+    },
+    "logout" :
+    {
+        "controller" : "Logout",
+        "action"     : "index"
+    },
+    "admin" : 
+    {
+        "controller" : "Admin",
+        "action" : "index"
+    },
+    "admin/publish/:id" :
+    {
+        "controller" : "Admin",
+        "action"     : "publishPost"
+    },
+    "admin/unpublish/:id" :
+    {
+        "controller" : "Admin",
+        "action"     : "unpublishPost"
+    },
+    "admin/delete/:id" :
+    {
+        "controller" : "Admin",
+        "action"     : "deletePost"
     }
 }

@@ -1,12 +1,11 @@
 <?php
 
-    define ('DEBUG', (isset($_GET['DEBUG']) ? true : false));
-
     define ('DEFAULT_CONTROLLER', 'Home');
     define ('DEFAULT_ACTION'    , 'index');
     define ('DEFAULT_LAYOUT'    , 'default');
 
     define ('SROOT', '/blog/');
+    define ('UPLOAD_IMG_DIR', 'images/');
 
     define ('STATIC_TITLE', ' - MVC Framework Blog');
 
@@ -17,3 +16,5 @@
     define ('PAGE_HOME'     , SROOT);
     define ('PAGE_ALL_POSTS', SROOT . 'posts');
     define ('PAGE_ABOUT'    , SROOT . '#');
+    
+    define('CURRENT_USER_SESSION_NAME', 'hkj1MuUENDMC6jaivqNq300AFKYbzRXq');

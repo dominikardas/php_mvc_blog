@@ -2,8 +2,8 @@
 
     class View {
 
-        protected $_head, $_newPosts, $_body, $_outputBuffer, $_layout = DEFAULT_LAYOUT, $_title;
-        public $data;
+        protected $_head, $_body, $_outputBuffer, $_layout = DEFAULT_LAYOUT, $_title;
+        public $data, $displayErrors;
 
         public function __construct() {
 

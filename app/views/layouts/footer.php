@@ -1,6 +1,9 @@
-<div class="c-container-footer">
+<div id="js-popup">    
 </div>
 
-<div id="page-loading">
-    <span id="js-loading"></span>
-</div>
+<?php 
+    if ($_SESSION['pushMessage']) {
+        echo '<div id="push-message">' . $_SESSION['pushMessage'] . '</div>';
+        unset($_SESSION['pushMessage']);
+    }
+?>

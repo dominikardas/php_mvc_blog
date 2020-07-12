@@ -12,9 +12,8 @@ CREATE TABLE IF NOT EXISTS Users (
 
     username VARCHAR(64),
     password VARCHAR(64),
-    email VARCHAR(64),
-    
-    profilePicture VARCHAR(64),
+
+    isAdmin BOOLEAN,
 
     PRIMARY KEY (userId)
 );
@@ -23,6 +22,7 @@ CREATE TABLE IF NOT EXISTS Categories (
 
     categoryId INT AUTO_INCREMENT NOT NULL,
     categoryName VARCHAR(64) UNIQUE,
+    categoryDisplay VARCHAR(64),
     categoryTitle VARCHAR(64),
 
     PRIMARY KEY (categoryId)
@@ -45,13 +45,11 @@ CREATE TABLE IF NOT EXISTS Posts(
     PRIMARY KEY (postId)
 );
 
--- Test data
+INSERT INTO Users (fname, lname, username, isAdmin) VALUES ('Dominik', 'Kardas', 'dominik', 'true');
 
-INSERT INTO Users (fname, lname, username) VALUES ('Dominik', 'Kardas', 'dominik');
-
-INSERT INTO Categories (categoryName, categoryTitle) VALUES 
-    ('category1', 'First category'), 
+INSERT INTO Categories (categoryName, categoryDisplay, categoryTitle) VALUES 
+    ('category1', 'Category 1', 'First category'), 
     
-    ('category2', 'Second category'), 
+    ('category2', 'Category 2','Second category'), 
     
-    ('category3', 'Third category');
+    ('category3', 'Category 3','Third category');

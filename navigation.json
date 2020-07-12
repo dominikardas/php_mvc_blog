@@ -1,0 +1,42 @@
+{
+    "Home" : {
+        "href" : "/blog"
+    },
+    "All Posts" : {
+        "href" : "/blog/posts"
+    },
+    "Categories" : {
+        "sub" : {
+            "Category 1" : {                
+                "href" : "/blog/posts/category1"
+            },
+            "Category 2" : {
+                "href" : "/blog/posts/category2"
+            },
+            "Category 3" : {
+                "href" : "/blog/posts/category3"
+            }
+        }
+    },
+    "Login" : {
+        "href" : "/blog/login",
+        "hideIfLogged" : true,
+        "loggedIn" : false
+    },
+    "User Panel" : {
+        "hideIfLogged" : false,
+        "loggedIn" : true,
+        "sub" : {              
+            "Admin Panel" : {
+                "href" : "/blog/admin",
+                "isAdmin" : true
+            },         
+            "Create Post" : {
+                "href" : "/blog/posts/designer"
+            },
+            "Log Out" : {
+                "href" : "/blog/logout"
+            }
+        }
+    }
+}

@@ -7,14 +7,14 @@
     
     <div class="l-new-posts">
         <div class="l-top-post l-top-post__big">
-            <?= getTopPost($this->data[0]); ?>
+            <?= getTopPostHtml($this->data[0]); ?>
         </div>
         <div class="c_top-post_small">
             <div class="l-top-post l-top-post__small">
-                <?= getTopPost($this->data[1]); ?>                
+                <?= getTopPostHtml($this->data[1]); ?>                
             </div>
             <div class="l-top-post l-top-post__small">
-                <?= getTopPost($this->data[2]); ?>                
+                <?= getTopPostHtml($this->data[2]); ?>                
             </div>
         </div>
     </div>

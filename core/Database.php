@@ -12,6 +12,7 @@
 
             try {
                 $this->_pdo = new PDO($dsn, $user, $pass);
+                $this->_pdo->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
             }
             catch (PDOException $e) {
                 die('PDO Error: ' . $e->getMessage());
@@ -60,7 +61,7 @@
          * @return object Database result if not null, otherwise false
          */
         public function results() {
-            return ($this->_result == null) ? false : $this->_result;
+            return ((array)$this->_result == null) ? false : (array)$this->_result;
         }        
 
         /**
@@ -69,6 +70,24 @@
          * @return object First database result if not null, otherwise false
          */
         public function resultsFirst() {
-            return ($this->_result[0] == null) ? false : $this->_result[0];
+            return ((array)$this->results()[0] == null) ? false : (array)$this->results()[0];
+        }
+
+        /** 
+         * Returns if the query has failed or not
+         * 
+         * @return boolean
+         */
+        public function hasFailed() {
+            return $this->_error;
+        }
+
+        /** 
+         * Returns the length of the result
+         * 
+         * @return int Length
+         */
+        public function resultLength() {
+            return count($this->_result);
         }
     }

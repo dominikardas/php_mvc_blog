@@ -1,21 +1,32 @@
-var _loading = '<span id="js-loading"></span>';
 var isLoading = false,
     allPostsLoaded = false;
 
-$( () => {
-    $('#page-loading').remove();
+var _loading = '<span id="js-loading"></span>';
+var activeClass = 'is-active';
+
+$(function(){
+
+    ajaxForm();
 
     $('#js-load-more').bind('click', loadMorePosts);
     $(window).scroll(checkPageBottom);
 });
 
-$(window).load( () => {
-    $('#page-loading').remove();
-});
+function popup(obj) {
 
-async function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}  
+    var popup = $('#js-popup'),
+        popupContent = $(obj).clone();
+
+    popup.html(popupContent);
+    popup.addClass(activeClass);    
+    popupContent.addClass(activeClass);    
+
+    $(document).on('click', '#js-popup-close-btn', function() {
+        popup.html('');
+        popup.removeClass(activeClass);    
+        popupContent.removeClass(activeClass); 
+    });
+}
 
 function loading(container) {
 

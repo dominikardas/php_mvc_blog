@@ -1,6 +1,5 @@
 <?php 
-    // oof 
-    $this->setTitle((string)((array)$this->data[0])['categoryName']);
+    $this->setTitle(((array)$this->data[0])['categoryDisplay']);
 ?>
 
 <?php $this->start('head'); ?>

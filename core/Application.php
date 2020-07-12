@@ -4,6 +4,7 @@
         
         public function __construct() {
             $this->_autoload();
+            $this->_startSession();
             $this->_setReporting();
             $this->_setEnvironment();
             $this->_setRoutes();
@@ -35,19 +36,34 @@
         }
 
         /**
+         * Start a session
+         */
+        private function _startSession() {
+            session_start();
+        }
+
+        /**
          * Enable error displaying if the DEBUG parameter is set in $_GET
+         * Call this only in development    
          */
         private function _setReporting() {
 
-            if (DEBUG){                
+            if (isset($_GET['DEBUG'])) {
+                if (!Cookie::exists('DEBUG') && $_GET['DEBUG'] == '1') {            
+                    Cookie::set('DEBUG', 1, 3600);
+                }
+                else if (Cookie::exists('DEBUG') && $_GET['DEBUG'] == '0') {    
+                    Cookie::delete('DEBUG');
+                }
+            }
+
+            if (Cookie::exists('DEBUG')) {
                 ini_set('display_errors', 1);
                 error_reporting(E_ALL);
             }
-            else {                
+            else {
                 ini_set('display_errors', 0);
                 error_reporting(0);
-                ini_set('log_errors', 1);
-                ini_set('error_log', ROOT . DS . 'tmp' . DS . 'logs' . DS . 'errors.log');
             }
         }
 
@@ -71,7 +87,7 @@
         }
 
         /**
-         * Set the router from given file
+         * Set the routes from given file
          */
         private function _setRoutes() {
 
@@ -81,7 +97,7 @@
 
             $r = [];
 
-            foreach($json as $key => $value) { $r[$key] = $value; }            
+            foreach($json as $key => $value) { $r[$key] = $value; }    
 
             Router::$routes = $r;
         }

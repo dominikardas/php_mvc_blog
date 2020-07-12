@@ -76,6 +76,9 @@
 
                             $params[] = $section;
                         }
+                        else if ($uriSplit[$key] !== $routeSplit[$key]){
+                            break;
+                        }
                     }
                 }
             }
@@ -107,8 +110,22 @@
                 call_user_func_array(array($c, $action), array($params));
             }
             else {
-                die('[ROUTER] Method doesn\'t exist in the controller ' . $controller);
+                display404();
             }
+        }
+
+        /**
+         * Redirect to a given URL
+         */
+        public static function redirect($location = '') {    
+
+            if (!http_response_code() || http_response_code() == 200)                
+                http_response_code(301);
+            
+            $url = SROOT . $location;    
+
+            header('Location: ' . $url);
+            exit();
         }
 
     }

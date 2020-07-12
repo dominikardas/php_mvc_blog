@@ -7,6 +7,7 @@
         die();
     }
 
+    /* String operations */
     function startswith($haystack, $needle) {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
@@ -21,66 +22,29 @@
         return (substr($haystack, -$length) === $needle);
     }
 
-    function FormatSQLDate($d) {
-        $date = explode('-', $d);
-        $f = $date[2] . ' ';
-
-        switch($date[1]){
-            case '01': 
-                $f .= 'January';
-                break;  
-            case '02': 
-                $f .= 'February';
-                break;
-            case '03': 
-                $f .= 'March';
-                break;
-            case '04': 
-                $f .= 'April';
-                break;
-            case '05': 
-                $f .= 'May';
-                break;
-            case '06': 
-                $f .= 'June';
-                break;
-            case '07': 
-                $f .= 'July';
-                break;
-            case '08': 
-                $f .= 'August';
-                break;
-            case '09': 
-                $f .= 'September';
-                break;
-            case '10': 
-                $f .= 'October';
-                break;
-            case '11': 
-                $f .= 'November';
-                break;
-            case '12': 
-                $f .= 'December';
-                break;
-            default: 
-                break;
+    function getRandomString($length = 32) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+    
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $characters[mt_rand(0, strlen($characters) - 1)];
         }
-
-        $f .= ', ' . $date[0];
-
-        return $f;
-
-        // dump($f);
+    
+        return $string;
+    }   
+    
+    /* Format SQL date */
+    function FormatSQLDate($d) {
+        return date('d M, Y', strtotime($d));
     }
 
-    function getTopPost($post) {        
+    /* HTML Rendering */
+    function getTopPostHtml($post) {        
 
         $result = '';
 
         $post = (array)$post;
         $path = SROOT . 'posts' . '/' . $post['categoryName'] . '/' . $post['slug'];
-
-        // dump($post);
 
         $result .= sprintf(
         '  <div><a href="%s">
@@ -133,3 +97,91 @@
         return $result;
 
     }
+
+    /* User data */
+    function currentUser() {
+        return UsersModel::currentLoggedInUser();
+    }
+
+    function currentUserArr() {
+        return (array)(UsersModel::currentLoggedInUser());
+    }
+    
+    function currentLoggedUser() {
+        return currentUserArr()['username'];
+    }
+    
+    function currentUserFullName() {
+        return currentUserArr()['fname'] . ' ' . currentUserArr()['lname'];
+    }
+
+    function isLoggedIn() {
+        return (currentUser() !== null);
+    }
+
+    function isAdmin() {
+        return empty(currentUserArr()) ? false : (boolean)(currentUserArr()['isAdmin']);
+    }
+
+    /* DB */
+
+    function getAllCategories() {
+
+        $sql = "SELECT * FROM categories";
+        $results = Database::getInstance()->query($sql)->results();
+        return (array)$results;
+    }
+
+    function isValidCategory($categoryName) {
+
+        $categories = getAllCategories();
+
+        for($i = 0; $i < count($categories); $i++) {
+
+            if (((array)$categories[$i])['categoryName'] == $categoryName) 
+                return true;
+        }
+        
+        return false;
+    }
+
+    /* Redirects */
+    function redirectIfNotAuthenticated() {
+        if (!isLoggedIn())
+            Router::redirect();
+    }
+
+    function redirectIfAuthenticated() {
+        if (isLoggedIn())
+            Router::redirect();
+    }
+
+    function setPushMessage($msg) {
+        Session::set('pushMessage', $msg);
+    }
+
+    function display404() {
+        http_response_code(404);
+        setPushMessage('Page was not found');
+        Router::redirect();
+    }
+
+    // Generates a 50 chars long slug from the title and 12 random characters
+    function generateSlugFromTitle($title) {
+
+        $slug = '';
+
+        $title = strtolower($title);
+        $title = explode(' ', $title);
+
+        foreach($title as $word) {
+            $slug = $slug . $word . '-';
+        }
+
+        $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug);
+        $slug = substr($slug, 0, 38);
+
+        $slug = $slug . getRandomString(12);
+        return $slug;
+    }
+
